@@ -38,6 +38,9 @@ A simple web application that extracts lab‐test values (name, numeric result, 
      ```  
    - **Windows:**  
      Download and install from [github.com/tesseract-ocr/tesseract](https://github.com/tesseract-ocr/tesseract).  
-     Ensure the install directory (e.g. `C:\Program Files\Tesseract-OCR`) is in your `PATH`, or set `pytesseract.pytesseract.tesseract_cmd` accordingly in `app.py`.  
+     Ensure the install directory (e.g. `C:\Program Files\Tesseract-OCR`) is in your `PATH`, or set `pytesseract.pytesseract.tesseract_cmd` accordingly in `app.py`.
+
+      ## Deployment
+      The link is https://deploy-me-production.up.railway.app/
 
 ---
