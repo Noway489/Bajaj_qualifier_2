@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Lab Test Results</title>
+  <style>
+    /* Reset and base */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f0f4f8;
+      padding: 20px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .container {
+      background: #fff;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+      max-width: 800px;
+      width: 100%;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #333;
+      font-size: 2rem;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+    }
+    th, td {
+      padding: 12px 15px;
+      text-align: left;
+      border-bottom: 1px solid #ececec;
+    }
+    th {
+      background-color: #467fcf;
+      color: #fff;
+      text-transform: uppercase;
+      font-size: 0.9rem;
+    }
+    tr:nth-child(even) {
+      background-color: #f9fafb;
+    }
+    tr:hover {
+      background-color: #f1f5f9;
+    }
+
+    .no-data {
+      text-align: center;
+      color: #555;
+      padding: 20px 0;
+      font-size: 1rem;
+    }
+
+    .upload-link {
+      display: inline-block;
+      margin-top: 20px;
+      color: #467fcf;
+      text-decoration: none;
+      font-weight: bold;
+      transition: color 0.2s;
+    }
+    .upload-link:hover {
+      color: #315f9f;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Lab Test Results</h1>
+
+    {% if data %}
+      <table>
+        <tr>
+          <th>Test Name</th>
+          <th>Value</th>
+          <th>Unit</th>
+          <th>Reference Range</th>
+          <th>Out of Range?</th>
+        </tr>
+        {% for row in data %}
+        <tr>
+          <td>{{ row.test_name }}</td>
+          <td>{{ row.test_value }}</td>
+          <td>{{ row.test_unit }}</td>
+          <td>{{ row.bio_reference_range }}</td>
+          <td>{{ 'Yes' if row.lab_test_out_of_range else 'No' }}</td>
+        </tr>
+        {% endfor %}
+      </table>
+    {% else %}
+      <p class="no-data">No lab tests detected in the image.</p>
+    {% endif %}
+
+    <p style="text-align: center;">
+      <a class="upload-link" href="/">Upload another image</a>
+    </p>
+  </div>
+
+  {% if data %}
+  <script>
+    // Embed and serialize the data
+    const labData = {{ data | tojson }};
+    const jsonStr = JSON.stringify(labData, null, 2);
+    // Create a Blob and download link
+    const blob = new Blob([jsonStr], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    // Programmatically trigger download on page load
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'lab_results.json';
+    document.body.appendChild(a);
+    a.click();
+    // Clean up
+    setTimeout(() => {
+      URL.revokeObjectURL(url);
+      a.remove();
+    }, 100);
+  </script>
+  {% endif %}
+
+</body>
+</html>

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Upload Lab Test Image</title>
+  <style>
+    /* Base reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background: linear-gradient(135deg, #f0f4f8, #d9e2ec);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .container {
+      background: #fff;
+      padding: 30px 40px;
+      border-radius: 12px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+      max-width: 400px;
+      width: 100%;
+      text-align: center;
+    }
+
+    h1 {
+      color: #333;
+      margin-bottom: 20px;
+      font-size: 1.8rem;
+    }
+
+    .file-input {
+      position: relative;
+      overflow: hidden;
+      display: inline-block;
+      margin-bottom: 20px;
+    }
+
+    .file-input input[type="file"] {
+      position: absolute;
+      top: 0; left: 0;
+      opacity: 0;
+      width: 100%;
+      height: 100%;
+      cursor: pointer;
+    }
+
+    .file-input label {
+      display: inline-block;
+      padding: 12px 25px;
+      background: #467fcf;
+      color: #fff;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.2s ease;
+      font-size: 1rem;
+    }
+
+    .file-input label:hover {
+      background: #3a6fb0;
+    }
+
+    .submit-btn {
+      display: inline-block;
+      padding: 12px 30px;
+      background: #50d890;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.2s ease;
+      font-size: 1rem;
+    }
+
+    .submit-btn:hover {
+      background: #3cbf7f;
+    }
+
+    p.note {
+      margin-top: 15px;
+      font-size: 0.9rem;
+      color: #666;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Analyze Lab Test Image</h1>
+    <form action="/get-lab-tests" enctype="multipart/form-data" method="post">
+      <div class="file-input">
+        <label for="file">Choose Image…</label>
+        <input id="file" type="file" name="file" accept="image/*" required />
+      </div>
+      <br/>
+      <button type="submit" class="submit-btn">Analyze</button>
+    </form>
+    <p class="note">Supported formats: JPG, PNG, BMP</p>
+  </div>
+</body>
+</html>
